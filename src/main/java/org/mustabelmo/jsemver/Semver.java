@@ -1,9 +1,10 @@
 package org.mustabelmo.jsemver;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Semver {
+public class Semver implements Comparable<Semver> {
     private static final String REGEX = "(\\d+)\\.(\\d+)\\.(\\d+)";
     private static final String COERCE_REGEX = "^v(\\d+)(\\.(\\d+))?(\\.(\\d+))?";
 
@@ -66,5 +67,46 @@ public class Semver {
 
     public int patch() {
         return patch;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Semver semver)) {
+            return false;
+        }
+        return major == semver.major && minor == semver.minor && patch == semver.patch;
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(major, minor, patch);
+    }
+    @Override
+    public int compareTo(Semver otherSemver) {
+        final int result;
+        if (otherSemver == null || !otherSemver.isValid()) {
+            result = 1;
+        } else if (!isValid()) {
+            result = -1;
+        } else {
+            int majorCompare = Integer.compare(major, otherSemver.major);
+            int minorCompare = Integer.compare(minor, otherSemver.minor);
+            int patchCompare = Integer.compare(patch, otherSemver.patch);
+            result = Integer.compare(4 * majorCompare + 2 * minorCompare + patchCompare, 0);
+        }
+
+        return result;
+    }
+    public boolean isInRange(String low, String up) {
+        return isInRange(Semver.parse(low), Semver.parse(up));
+    }
+    public boolean isInRange(Semver low, Semver up) {
+        return isGreaterThanOrEqual(low) && isLessThanOrEqual(up);
+    }
+    public boolean isLessThanOrEqual(Semver up) {
+        return compareTo(up) <= 0;
+    }
+    public boolean isGreaterThanOrEqual(Semver low) {
+        return compareTo(low) >= 0;
     }
 }
