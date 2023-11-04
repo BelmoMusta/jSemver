@@ -1,7 +1,54 @@
 
 @
-java:S5786"Remove this 'public' modifier.(şä¤úÿÿÿÿ8®÷Œ¾·1
+java:S5786
+"Remove this 'public' modifier.(şä¤úÿÿÿÿ8™­¤È·1
 ;
-java:S5786"Remove this 'public' modifier.(ÖÙÑ8®÷Œ¾·1
+java:S5786"Remove this 'public' modifier.(·óº8™­¤È·1
+;
+java:S5786"Remove this 'public' modifier.(Íö€æ8š­¤È·1
+;
+java:S5786"Remove this 'public' modifier.(…Û×ğ8š­¤È·1
+;
+java:S5786#"Remove this 'public' modifier.(¡õƒœ8š­¤È·1
 @
-java:S5786"Remove this 'public' modifier.(Î®”øÿÿÿÿ8“Ìš¾·1
+java:S5786("Remove this 'public' modifier.(Îãûÿÿÿÿ8š­¤È·1
+@
+java:S5786-"Remove this 'public' modifier.(†õ¢×úÿÿÿÿ8š­¤È·1
+;
+java:S57862"Remove this 'public' modifier.(çµóé8š­¤È·1
+;
+java:S57867"Remove this 'public' modifier.(â¨ş„8›­¤È·1
+;
+java:S5786<"Remove this 'public' modifier.(üÄ“8›­¤È·1
+@
+java:S5786B"Remove this 'public' modifier.(Ó£òæúÿÿÿÿ8›­¤È·1
+@
+java:S5786H"Remove this 'public' modifier.(´Éœøÿÿÿÿ8›­¤È·1
+:
+java:S5786P"Remove this 'public' modifier.( Ê±,8Ñ×±È·1
+;
+java:S5786W"Remove this 'public' modifier.(÷¿ƒ8ê¾´È·1
+;
+java:S5786^"Remove this 'public' modifier.(€í®‚8Èë¹È·1
+;
+java:S5786e"Remove this 'public' modifier.(Õ€¢8Úç»È·1
+;
+java:S5786l"Remove this 'public' modifier.(¥ÎÂ¥8—÷ÁÈ·1
+;
+java:S5786s"Remove this 'public' modifier.(»¤šÏ8ØÂÌ·1
+;
+java:S5786z"Remove this 'public' modifier.(æ¬ñ8Â­¦Ì·1
+;
+java:S5786"Remove this 'public' modifier.(¦‹†‰8õÓ§Ì·1
+<
+java:S5786†"Remove this 'public' modifier.(À¦ø´8ö±¬Ì·1
+A
+java:S5786‹"Remove this 'public' modifier.(Û «çøÿÿÿÿ8ßÀşÌ·1
+@
+java:S5786"Remove this 'public' modifier.(Î®”øÿÿÿÿ8±¯™Í·1
+R
+java:S5976P"6Replace these 4 tests with a single Parameterized one.( Ê±,8†üÃÈ·1
+6
+java:S5785w"Use assertEquals instead.(¡ÃìÀ8Çô¥Ì·1
+>
+java:S5785|"Use assertNotEquals instead.(”ı‰¨úÿÿÿÿ8Ÿ¨Ì·1

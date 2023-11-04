@@ -106,7 +106,26 @@ public class Semver implements Comparable<Semver> {
     public boolean isLessThanOrEqual(Semver up) {
         return compareTo(up) <= 0;
     }
+    public boolean isLessThanOrEqual(String up) {
+        return isLessThanOrEqual(Semver.parse(up));
+    }
+
+    public boolean isLessThan(Semver up) {
+        return compareTo(up) < 0;
+    }
+    public boolean isLessThan(String up) {
+        return isLessThan(Semver.parse(up));
+    }
     public boolean isGreaterThanOrEqual(Semver low) {
         return compareTo(low) >= 0;
+    }
+    public boolean isGreaterThanOrEqual(String low) {
+        return isGreaterThanOrEqual(Semver.parse(low));
+    }
+    public boolean isGreaterThan(Semver low) {
+        return compareTo(low) > 0;
+    }
+    public boolean isGreaterThan(String low) {
+        return isGreaterThan(Semver.parse(low));
     }
 }

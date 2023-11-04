@@ -131,6 +131,53 @@ public class SemverTest {
                 semverA.patch()), semverA.hashCode());
     }
     @Test
+    public void testSemverIsGreaterThanAsAString() {
+        Semver semverA = Semver.parse("10.2.3");
+        Assertions.assertTrue(semverA.isGreaterThan("10.2.0"));
+    }
+    @Test
+    public void testSemverIsGreaterThan() {
+        Semver semverA = Semver.parse("10.2.3");
+        Semver semverB = Semver.parse("10.2.0");
+        Assertions.assertTrue(semverA.isGreaterThan(semverB));
+    }
+
+    @Test
+    public void testSemverIsGreaterThanOrEqual() {
+        Semver semverA = Semver.parse("10.2.3");
+        Semver semverB = Semver.parse("10.2.3");
+        Assertions.assertTrue(semverA.isGreaterThanOrEqual(semverB));
+    }
+
+    @Test
+    public void testSemverIsGreaterThanOrEqualAsAString() {
+        Semver semverA = Semver.parse("10.2.3");
+        Assertions.assertTrue(semverA.isGreaterThanOrEqual("10.2.3"));
+    }
+
+    @Test
+    public void testSemverIsLessThanAsAString() {
+        Semver semverA = Semver.parse("1.2.3");
+        Assertions.assertTrue(semverA.isLessThan("10.2.0"));
+    }
+    @Test
+    public void testSemverIsLessThan() {
+        Semver semverA = Semver.parse("1.2.3");
+        Semver semverB = Semver.parse("10.2.0");
+        Assertions.assertTrue(semverA.isLessThan(semverB));
+    }
+    @Test
+    public void testSemverIsLessThanOrEqual() {
+        Semver semverA = Semver.parse("10.2.3");
+        Semver semverB = Semver.parse("10.2.3");
+        Assertions.assertTrue(semverA.isLessThanOrEqual(semverB));
+    }
+    @Test
+    public void testSemverIsLessThanOrEqualAsAString() {
+        Semver semverA = Semver.parse("10.2.3");
+        Assertions.assertTrue(semverA.isLessThanOrEqual("10.2.3"));
+    }
+    @Test
     public void testSemverIsInRange() {
         Semver semverA = Semver.parse("10.2.3");
         Assertions.assertTrue(semverA.isInRange("10.2.0", "10.2.4"));
