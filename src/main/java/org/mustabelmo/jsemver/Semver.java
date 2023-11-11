@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class Semver implements Comparable<Semver> {
     private static final String REGEX = "(\\d+)\\.(\\d+)\\.(\\d+)";
-    private static final String COERCE_REGEX = "^v(\\d+)(\\.(\\d+))?(\\.(\\d+))?";
+    private static final String COERCE_REGEX = "(\\d+)(\\.(\\d+))?(\\.(\\d+))?";
 
     private final int major;
     private final int minor;
@@ -20,25 +20,18 @@ public class Semver implements Comparable<Semver> {
         this.patch = patch;
     }
     public static Semver parse(String version) {
-
-        Pattern pattern = Pattern.compile(REGEX);
-        Matcher matcher = pattern.matcher(version);
-        if (matcher.find() && matcher.groupCount() == 3) {
-            final int major = parseStringToInt(matcher.group(1));
-            final int minor = parseStringToInt(matcher.group(2));
-            final int patch = parseStringToInt(matcher.group(3));
-            return new Semver(major, minor, patch);
-        }
-        return new Semver(-1, -1, -1);
+        return getSemver(version, REGEX, 1, 2, 3);
     }
     public static Semver coerce(String version) {
-        Pattern pattern = Pattern.compile(COERCE_REGEX);
+        return getSemver(version, COERCE_REGEX, 1, 3, 5);
+    }
+    private static Semver getSemver(String version, String regex, int majorIndex, int minorIndex, int patchIndex) {
+        Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(version);
         if (matcher.find()) {
-            String group = matcher.group(1);
-            final int major = parseStringToInt(group);
-            final int minor = parseStringToInt(matcher.group(3));
-            final int patch = parseStringToInt(matcher.group(5));
+            final int major = parseStringToInt(matcher.group(majorIndex));
+            final int minor = parseStringToInt(matcher.group(minorIndex));
+            final int patch = parseStringToInt(matcher.group(patchIndex));
             return new Semver(major, minor, patch);
         }
         return new Semver(-1, -1, -1);
@@ -101,7 +94,10 @@ public class Semver implements Comparable<Semver> {
         return isInRange(Semver.parse(low), Semver.parse(up));
     }
     public boolean isInRange(Semver low, Semver up) {
-        return isGreaterThanOrEqual(low) && isLessThanOrEqual(up);
+        if (isGreaterThanOrEqual(low)) {
+            return isLessThanOrEqual(up);
+        }
+        return false;
     }
     public boolean isLessThanOrEqual(Semver up) {
         return compareTo(up) <= 0;
@@ -127,5 +123,15 @@ public class Semver implements Comparable<Semver> {
     }
     public boolean isGreaterThan(String low) {
         return isGreaterThan(Semver.parse(low));
+    }
+
+    public Semver bumpMajor() {
+        return new Semver(major + 1, 0, 0);
+    }
+    public Semver bumpMinor() {
+        return new Semver(major, minor + 1, 0);
+    }
+    public Semver bumpPatch() {
+        return new Semver(major, minor, patch + 1);
     }
 }

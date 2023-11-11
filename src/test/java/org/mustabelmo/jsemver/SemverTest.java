@@ -37,13 +37,18 @@ public class SemverTest {
         Assertions.assertEquals("3.0.0", semver.toString());
     }
     @Test
+    public void testSemverCoerce1() {
+        Semver semver = Semver.coerce("4.6.3.9.2-alpha2");
+        Assertions.assertEquals("4.6.3", semver.toString());
+    }
+    @Test
     public void testSemverCoerce2() {
         Semver semver = Semver.coerce("v3.1");
         Assertions.assertEquals("3.1.0", semver.toString());
     }
     @Test
     public void testSemverCoerce3() {
-        Semver semver = Semver.coerce("v3.1.6");
+        Semver semver = Semver.parse("v3.1.6");
         Assertions.assertEquals("3.1.6", semver.toString());
     }
     @Test
@@ -58,7 +63,7 @@ public class SemverTest {
     }
     @Test
     public void testSemverCoerceIncorrectVersion() {
-        Semver semver = Semver.coerce("v");
+        Semver semver = Semver.parse("v");
         Assertions.assertFalse(semver.isValid());
     }
 
@@ -115,8 +120,30 @@ public class SemverTest {
     public void testSemverEquqls() {
         Semver semverA = Semver.parse("10.2.3");
         Semver semverB = Semver.parse("10.2.3");
-        int compare = semverA.compareTo(semverB);
-        Assertions.assertTrue(semverA.equals(semverB));
+        Assertions.assertEquals(semverA, semverB);
+    }
+    @Test
+    public void testSemverEquqlsFalse() {
+        Semver semverA = Semver.parse("1.20.4");
+        Semver semverB = Semver.parse("10.2.3");
+        Assertions.assertNotEquals(semverA, semverB);
+    }
+
+    @Test
+    public void testSemverEquqlsFalseKo() {
+        Semver semverA = Semver.parse("10.2.4");
+        Semver semverB = Semver.parse("10.20.3");
+        Assertions.assertNotEquals(semverA, semverB);
+    }@Test
+    public void testSemverEquqlsFalseKo2() {
+        Semver semverA = Semver.parse("10.20.4");
+        Semver semverB = Semver.parse("10.20.3");
+        Assertions.assertNotEquals(semverA, semverB);
+    }
+    @Test
+    public void testSemverEquqlsTautology() {
+        Semver semverA = Semver.parse("10.2.3");
+        Assertions.assertEquals(semverA, semverA);
     }
     @Test
     public void testSemverEquqlsNull() {
@@ -140,6 +167,12 @@ public class SemverTest {
         Semver semverA = Semver.parse("10.2.3");
         Semver semverB = Semver.parse("10.2.0");
         Assertions.assertTrue(semverA.isGreaterThan(semverB));
+    }
+    @Test
+    public void testSemverIsGreaterThanFalse() {
+        Semver semverA = Semver.parse("10.2.3");
+        Semver semverB = Semver.parse("10.2.0");
+        Assertions.assertFalse(semverB.isGreaterThan(semverA));
     }
 
     @Test
@@ -165,12 +198,22 @@ public class SemverTest {
         Semver semverA = Semver.parse("1.2.3");
         Semver semverB = Semver.parse("10.2.0");
         Assertions.assertTrue(semverA.isLessThan(semverB));
+    }@Test
+    public void testSemverIsLessThanFalse() {
+        Semver semverA = Semver.parse("1.2.3");
+        Semver semverB = Semver.parse("10.2.0");
+        Assertions.assertFalse(semverB.isLessThan(semverA));
     }
     @Test
     public void testSemverIsLessThanOrEqual() {
         Semver semverA = Semver.parse("10.2.3");
         Semver semverB = Semver.parse("10.2.3");
         Assertions.assertTrue(semverA.isLessThanOrEqual(semverB));
+    }@Test
+    public void testSemverIsLessThanOrEqualFalse() {
+        Semver semverA = Semver.parse("10.2.4");
+        Semver semverB = Semver.parse("10.2.3");
+        Assertions.assertFalse(semverA.isLessThanOrEqual(semverB));
     }
     @Test
     public void testSemverIsLessThanOrEqualAsAString() {
@@ -186,5 +229,10 @@ public class SemverTest {
     public void testSemverIsNotInRange() {
         Semver semverA = Semver.parse("1.2.3");
         Assertions.assertFalse(semverA.isInRange("10.2.0", "10.2.4"));
+    }
+    @Test
+    public void testSemverIsInRangeTautology() {
+        Semver semverA = Semver.parse("1.2.3");
+        Assertions.assertTrue(semverA.isInRange("1.2.3", "1.2.3"));
     }
 }
